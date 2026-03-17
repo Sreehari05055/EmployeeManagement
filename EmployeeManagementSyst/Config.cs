@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagementSyst
 {
-    class Config
+    public class Config
     {
         public IConfigurationRoot Builder { get; }
 

@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace EmployeeManagementSyst
 {
-    class ServerConnection
+    public class ServerConnection
     {
         private static string? _connectionString;
 
