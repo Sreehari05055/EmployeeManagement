@@ -73,10 +73,9 @@ namespace EmployeeManagementSyst
             string phoneInp = textBox3.Text; // Gets the phone number input
             string emailInp = textBox4.Text; // Gets the email input          
             string rateInp = textBox5.Text; // Gets the hourly rate input
-            string cardNumInp = textBox6.Text; // Gets the card number input
-            string cardExpInp = textBox7.Text; // Gets the card expiration date input
-            string cvvInp = textBox8.Text; // Gets the CVV input
-            string cardNameInp = textBox9.Text; // Gets the cardholder's name input
+            string accountNumInp = textBox6.Text; // Gets the account number input
+            string sortCodeInp = textBox7.Text; // Gets the sort code input
+            string cardNameInp = textBox8.Text; // Gets the account holder's name input
             GetSurname();
 
 
@@ -90,9 +89,8 @@ namespace EmployeeManagementSyst
                 surname: SurName,
                 userRole: "employee",
                 hireDate: DateTime.Today,
-                cardNumber: string.IsNullOrWhiteSpace(cardNumInp) ? null : cardNumInp,
-                expiryDate: string.IsNullOrWhiteSpace(cardExpInp) ? null : cardExpInp,
-                cvv: string.IsNullOrWhiteSpace(cvvInp) ? null : cvvInp,
+                accountNumber: string.IsNullOrWhiteSpace(accountNumInp) ? null : accountNumInp,
+                sortCode: string.IsNullOrWhiteSpace(sortCodeInp) ? null : sortCodeInp,
                 holderName: string.IsNullOrWhiteSpace(cardNameInp) ? null : cardNameInp
             );
 

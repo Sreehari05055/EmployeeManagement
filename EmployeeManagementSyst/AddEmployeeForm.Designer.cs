@@ -108,9 +108,9 @@
             label5.Location = new Point(613, 504);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(155, 28);
+            label5.Size = new Size(195, 28);
             label5.TabIndex = 4;
-            label5.Text = "Card Number";
+            label5.Text = "Account Number";
             // 
             // label6
             // 

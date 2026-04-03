@@ -22,6 +22,24 @@ namespace EmployeeManagementSyst
             _connectionString = config.AppConn ?? throw new Exception("AppConn missing in configuration.");
         }
 
+        /// <summary>
+        /// Initialize directly with a connection string. Useful for tests and scenarios
+        /// where a Config instance is not available.
+        /// </summary>
+        public static void Initialize(string connectionString)
+        {
+            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentException("connectionString missing", nameof(connectionString));
+            _connectionString = connectionString;
+        }
+
+        /// <summary>
+        /// Reset internal state for tests.
+        /// </summary>
+        public static void Reset()
+        {
+            _connectionString = null;
+        }
+
         public static string GetConnectionString()
         {
             if (string.IsNullOrEmpty(_connectionString)) throw new InvalidOperationException("ServerConnection not initialized. Call ServerConnection.Initialize(config) before using.");

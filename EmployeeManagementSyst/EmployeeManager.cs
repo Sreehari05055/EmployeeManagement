@@ -21,9 +21,8 @@ namespace EmployeeManagementSyst
             string surname,
             string userRole = "employee",
             DateTime? hireDate = null,
-            string cardNumber = null,
-            string expiryDate = null,
-            string cvv = null,
+            string accountNumber = null,
+            string sortCode = null,
             string holderName = null)
         {
             hireDate ??= DateTime.Today;
@@ -53,15 +52,14 @@ namespace EmployeeManagementSyst
                             var clockPin = reader.IsDBNull(reader.GetOrdinal("ClockPin")) ? null : reader.GetString(reader.GetOrdinal("ClockPin"));
                             reader.Close();
 
-                            if (!string.IsNullOrEmpty(cardNumber))
+                            if (!string.IsNullOrEmpty(accountNumber))
                             {
-                                string insertCard = "INSERT INTO CardInformation(EmployeeId,CardNumber,ExpiryDate,Cvv,HolderName) VALUES (@id,@cardNum,@expiry,@cvv,@holder);";
+                                string insertCard = "INSERT INTO CardInformation(EmployeeId,AccountNumber,SortCode,HolderName) VALUES (@id,@accountNum,@sortCode,@holder);";
                                 using (var ccmd = new SqlCommand(insertCard, conn, tran))
                                 {
                                     ccmd.Parameters.AddWithValue("@id", newId);
-                                    ccmd.Parameters.AddWithValue("@cardNum", (object)cardNumber ?? DBNull.Value);
-                                    ccmd.Parameters.AddWithValue("@expiry", (object)expiryDate ?? DBNull.Value);
-                                    ccmd.Parameters.AddWithValue("@cvv", (object)cvv ?? DBNull.Value);
+                                    ccmd.Parameters.AddWithValue("@accountNum", (object)accountNumber ?? DBNull.Value);
+                                    ccmd.Parameters.AddWithValue("@sortCode", (object)sortCode ?? DBNull.Value);
                                     ccmd.Parameters.AddWithValue("@holder", (object)holderName ?? DBNull.Value);
                                     ccmd.ExecuteNonQuery();
                                 }

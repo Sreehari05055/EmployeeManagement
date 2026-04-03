@@ -31,9 +31,8 @@ namespace EmployeeManagementSyst
                 string phone = textBox8.Text.Trim();
                 string email = textBox3.Text.Trim();
                 string hourlyRate = textBox9.Text.Trim();
-                string cardNumber = textBox4.Text.Trim();
-                string cardExpiry = textBox5.Text.Trim();
-                string cardCvv = textBox6.Text.Trim();
+                string accountNumber = textBox4.Text.Trim();
+                string sortCode = textBox5.Text.Trim();
                 string cardHolder = textBox7.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(fullName))
@@ -54,9 +53,8 @@ namespace EmployeeManagementSyst
                     surname: surname,
                     userRole: "admin",
                     hireDate: DateTime.Today,
-                    cardNumber: string.IsNullOrWhiteSpace(cardNumber) ? null : cardNumber,
-                    expiryDate: string.IsNullOrWhiteSpace(cardExpiry) ? null : cardExpiry,
-                    cvv: string.IsNullOrWhiteSpace(cardCvv) ? null : cardCvv,
+                    accountNumber: string.IsNullOrWhiteSpace(accountNumber) ? null : accountNumber,
+                    sortCode: string.IsNullOrWhiteSpace(sortCode) ? null : sortCode,
                     holderName: string.IsNullOrWhiteSpace(cardHolder) ? null : cardHolder
                 );
 

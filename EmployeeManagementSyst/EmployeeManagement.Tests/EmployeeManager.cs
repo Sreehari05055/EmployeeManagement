@@ -32,7 +32,7 @@ namespace EmployeeManagement.Tests
                         fullName: "John Doe", age: "30", phoneNumber: "1234567890",
                         email: "john.doe@example.com", hourlyRate: "15.00", surname: "Doe",
                         userRole: "employee", hireDate: DateTime.Today,
-                        cardNumber: "4111111111111111", expiryDate: "12/25", cvv: "123", holderName: "John Doe"
+                        accountNumber: "12345678", sortCode: "20-30-40", holderName: "John Doe"
                     );
 
                     // Assert
