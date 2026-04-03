@@ -8,8 +8,8 @@ namespace EmployeeManagement.Tests;
 public class EmployeeHelperTests
 {
     // Known clock pins in the test database
-    private const string AdminClockPin = "7603";
-    private const string EmployeeClockPin = "3263";
+    private const string AdminClockPin = "3429";
+    private const string EmployeeClockPin = "5053";
 
     [TestInitialize]
     public void TestInitialize()
