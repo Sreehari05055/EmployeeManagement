@@ -49,55 +49,85 @@ namespace EmployeeManagementSyst
                     {
                         string empId = result.ToString();
 
-                        // Reuse the existing AdminVerification dialog to verify the acting admin.
-                        AdminVerification verify = new AdminVerification();
-                        verify.ReturnDialogResultOnSuccess = true;
-                        var dr = verify.ShowDialog();
-                        if (dr == DialogResult.OK)
+                        // Check if there are any existing admins
+                        string countAdminsQuery = "SELECT COUNT(*) FROM EmployeeDetails WHERE UserRole = 'admin';";
+                        using (SqlCommand countCmd = new SqlCommand(countAdminsQuery, serverConnect))
                         {
-                            // After successful verification, confirm the action with the acting admin.
-                            string employeeNameResolved = EmployeeHelper.GetNameById(empId) ?? empId;
-                            var confirmMsg = $"This action will grant admin privileges to {employeeNameResolved} (ID: {empId}) and will notify all existing admins. Do you want to continue?";
-                            var confirm = MessageBox.Show(confirmMsg, "Confirm Promotion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (confirm != DialogResult.Yes)
-                            {
-                                // User cancelled the promotion
-                                serverConnect.Close();
-                                return;
-                            }
+                            object countResult = countCmd.ExecuteScalar();
+                            int adminCount = countResult != null ? Convert.ToInt32(countResult) : 0;
 
-                            // Verified and confirmed - perform the role update directly from the list
-                            var promotingAdminId = verify.VerifiedAdminId;
-                            var promotingAdminName = verify.VerifiedAdminName;
-                            var success = PromoteToAdmin(empId, promotingAdminId, promotingAdminName);
-                            if (success)
+                            if (adminCount == 0)
                             {
-                                // Send notification emails to existing admins about the promotion
-                                // promotingAdminId/name were captured above
-                                var adminEmails = EmployeeHelper.GetAdminEmails();
-
-                                if (adminEmails != null && adminEmails.Length > 0)
+                                // No admins exist, directly promote the employee
+                                string employeeNameResolved = EmployeeHelper.GetNameById(empId) ?? empId;
+                                var confirmMsg = $"No admins exist. This will grant admin privileges to {employeeNameResolved} (ID: {empId}). Do you want to continue?";
+                                var confirm = MessageBox.Show(confirmMsg, "Confirm Promotion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                if (confirm != DialogResult.Yes)
                                 {
-                                    var subject = "Employee Role Update Notification";
-                                    var body = $"Employee {employeeNameResolved} (ID: {empId}) has been promoted to admin by {promotingAdminName} (ID: {promotingAdminId}).";
-                                    var emailer = new EmailConfiguration();
-                                    foreach (var admin in adminEmails)
-                                    {
-                                        try
-                                        {
-                                            emailer.SendEmail(admin, subject, body);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("Error sending admin notification to: " + admin + "\n" + ex.Message, "Email Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-                                    }
+                                    // User cancelled the promotion
+                                    serverConnect.Close();
+                                    return;
                                 }
 
-                                this.Close();
+                                var success = PromoteToAdmin(empId, empId, employeeNameResolved);
+                                if (success)
+                                {
+                                    this.Close();
+                                }
+                            }
+                            else
+                            {
+                                // Admins exist, require verification
+                                // Reuse the existing AdminVerification dialog to verify the acting admin.
+                                AdminVerification verify = new AdminVerification();
+                                verify.ReturnDialogResultOnSuccess = true;
+                                var dr = verify.ShowDialog();
+                                if (dr == DialogResult.OK)
+                                {
+                                    // After successful verification, confirm the action with the acting admin.
+                                    string employeeNameResolved = EmployeeHelper.GetNameById(empId) ?? empId;
+                                    var confirmMsg = $"This action will grant admin privileges to {employeeNameResolved} (ID: {empId}) and will notify all existing admins. Do you want to continue?";
+                                    var confirm = MessageBox.Show(confirmMsg, "Confirm Promotion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                    if (confirm != DialogResult.Yes)
+                                    {
+                                        // User cancelled the promotion
+                                        serverConnect.Close();
+                                        return;
+                                    }
+
+                                    // Verified and confirmed - perform the role update directly from the list
+                                    var promotingAdminId = verify.VerifiedAdminId;
+                                    var promotingAdminName = verify.VerifiedAdminName;
+                                    var success = PromoteToAdmin(empId, promotingAdminId, promotingAdminName);
+                                    if (success)
+                                    {
+                                        // Send notification emails to existing admins about the promotion
+                                        // promotingAdminId/name were captured above
+                                        var adminEmails = EmployeeHelper.GetAdminEmails();
+
+                                        if (adminEmails != null && adminEmails.Length > 0)
+                                        {
+                                            var subject = "Employee Role Update Notification";
+                                            var body = $"Employee {employeeNameResolved} (ID: {empId}) has been promoted to admin by {promotingAdminName} (ID: {promotingAdminId}).";
+                                            var emailer = new EmailConfiguration();
+                                            foreach (var admin in adminEmails)
+                                            {
+                                                try
+                                                {
+                                                    emailer.SendEmail(admin, subject, body);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Error sending admin notification to: " + admin + "\n" + ex.Message, "Email Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                        }
+
+                                        this.Close();
+                                    }
+                                }
                             }
                         }
-
                     }
                     else { MessageBox.Show("Error Finding Employee ID"); }
                     serverConnect.Close();
