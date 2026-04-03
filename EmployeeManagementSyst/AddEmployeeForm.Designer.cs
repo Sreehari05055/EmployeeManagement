@@ -37,7 +37,6 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            label9 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
@@ -46,7 +45,6 @@
             textBox6 = new TextBox();
             textBox7 = new TextBox();
             textBox8 = new TextBox();
-            textBox9 = new TextBox();
             label10 = new Label();
             button2 = new Button();
             splitter1 = new Splitter();
@@ -130,9 +128,9 @@
             label7.Location = new Point(613, 556);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(231, 28);
+            label7.Size = new Size(117, 28);
             label7.TabIndex = 6;
-            label7.Text = "Card Expiration Date";
+            label7.Text = "Sort Code";
             // 
             // label8
             // 
@@ -141,21 +139,9 @@
             label8.Location = new Point(613, 604);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
-            label8.Size = new Size(56, 28);
+            label8.Size = new Size(208, 28);
             label8.TabIndex = 7;
-            label8.Text = "CVV";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label9.Location = new Point(613, 659);
-            label9.Margin = new Padding(4, 0, 4, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(153, 28);
-            label9.TabIndex = 8;
-            label9.Text = "Holder Name";
-            label9.Click += label9_Click;
+            label8.Text = "Card Holder Name";
             // 
             // textBox1
             // 
@@ -229,15 +215,6 @@
             textBox8.Size = new Size(255, 31);
             textBox8.TabIndex = 16;
             // 
-            // textBox9
-            // 
-            textBox9.BackColor = Color.LightGray;
-            textBox9.Location = new Point(911, 659);
-            textBox9.Margin = new Padding(4);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(255, 31);
-            textBox9.TabIndex = 17;
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -252,7 +229,7 @@
             // button2
             // 
             button2.BackColor = SystemColors.ControlDark;
-            button2.Location = new Point(929, 859);
+            button2.Location = new Point(897, 727);
             button2.Margin = new Padding(4);
             button2.Name = "button2";
             button2.Size = new Size(240, 99);
@@ -301,7 +278,7 @@
             // button1
             // 
             button1.BackColor = SystemColors.ControlDark;
-            button1.Location = new Point(613, 859);
+            button1.Location = new Point(581, 727);
             button1.Margin = new Padding(4);
             button1.Name = "button1";
             button1.Size = new Size(240, 99);
@@ -322,7 +299,6 @@
             Controls.Add(splitter1);
             Controls.Add(button2);
             Controls.Add(label10);
-            Controls.Add(textBox9);
             Controls.Add(textBox8);
             Controls.Add(textBox7);
             Controls.Add(textBox6);
@@ -331,7 +307,6 @@
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
-            Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -359,7 +334,6 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private Label label9;
         private TextBox textBox1;
         private TextBox textBox2;
         private TextBox textBox3;
@@ -368,7 +342,6 @@
         private TextBox textBox6;
         private TextBox textBox7;
         private TextBox textBox8;
-        private TextBox textBox9;
         private Label label10;
         private Button button2;
         private Splitter splitter1;
